@@ -52,15 +52,48 @@
     </section>
 
     <!-- toggle buttons -->
-    <section class="container mx-auto">
+    <section class="container mx-auto mb-4">
         <div class="bg-white p-6 rounded-xl">
             <div class="">
-                <button onclick="switchTab('tab-all')" id="tab-all" class="bg-gray-500 text-white rounded-md py-2 px-10">All</button>
-                <button onclick="switchTab('tab-open')" id="tab-open" class="bg-gray-500 text-white rounded-md px-10 py-2">Open</button>
-                <button onclick="switchTab('tab-closed')" id="tab-closed" class="bg-gray-500 text-white rounded-md px-10 py-2">Closed</button>
+                <button onclick="switchTab('tab-all')" id="tab-all"
+                    class="bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">All</button>
+                <button onclick="switchTab('tab-open')" id="tab-open"
+                    class="bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">Open</button>
+                <button onclick="switchTab('tab-closed')" id="tab-closed"
+                    class="bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">Closed</button>
             </div>
         </div>
     </section>
+
+    <!-- issues store section -->
+    <section class="container mx-auto mb-4">
+        <div class="flex justify-between items-center bg-white p-5 rounded-xl">
+            <div class="flex items-center gap-2">
+                <img src="./assets/Aperture.png" alt="">
+                <div>
+                    <h2 class="text-xl font-semibold text-[#1F2937]"><span>0</span> Issues</h2>
+                    <p class="text-base text-[#64748B]">Track and manage your project issues</p>
+                </div>
+            </div>
+            <div class="flex gap-2">
+                <p class="text-base font-medium text-[#1F2937]"><i class="fa-solid fa-circle"
+                        style="color: rgb(99, 230, 190);"></i> Open</p>
+                <p class="text-base font-medium text-[#1F2937]"><i class="fa-solid fa-circle"
+                        style="color: rgb(72, 20, 224);"></i> Closed</p>
+            </div>
+        </div>
+        <hr class="text-[#E4E4E7] ">
+    </section>
+
+    <!-- cart section -->
+    <section class="container mx-auto bg-gray-200">
+        <div id="cart-container" class="grid grid-cols-4 gap-3">
+
+            <!-- cart -->
+            
+        </div>
+    </section>
+
 
     <script src="script/script.js"></script>
 </body>
