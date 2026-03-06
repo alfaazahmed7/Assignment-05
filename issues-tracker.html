@@ -22,11 +22,47 @@
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
-<body>
-    <!-- github issues tracker section -->
-    <section id="issues-tracker-section">
-        <h2 class="text-7xl">hello i am alfaaz</h2>
+<body class="bg-gray-200 min-h-screen">
+
+    <!-- issues tracker header -->
+    <section class="bg-white mb-[60px]">
+        <div class="w-11/12 mx-auto flex justify-between items-center py-5">
+            <div class="flex gap-2">
+                <img class="max-w-[37px]" src="./assets/github-logo.png" alt="">
+                <h2 class="text-2xl font-semibold text-[#1F2937]">GitHub Issues Tracker</h2>
+            </div>
+            <div class="flex gap-2">
+                <div>
+                    <label class="input">
+                        <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
+                                stroke="currentColor">
+                                <circle cx="11" cy="11" r="8"></circle>
+                                <path d="m21 21-4.3-4.3"></path>
+                            </g>
+                        </svg>
+                        <input type="search" required placeholder="Search" />
+                    </label>
+                </div>
+                <div>
+                    <button class="btn btn-primary"><i class="fa-solid fa-plus"></i> New Issue</button>
+                </div>
+            </div>
+        </div>
     </section>
+
+    <!-- toggle buttons -->
+    <section class="container mx-auto">
+        <div class="bg-white p-6 rounded-xl">
+            <div class="">
+                <button onclick="switchTab('tab-all')" id="tab-all" class="bg-gray-500 text-white rounded-md py-2 px-10">All</button>
+                <button onclick="switchTab('tab-open')" id="tab-open" class="bg-gray-500 text-white rounded-md px-10 py-2">Open</button>
+                <button onclick="switchTab('tab-closed')" id="tab-closed" class="bg-gray-500 text-white rounded-md px-10 py-2">Closed</button>
+            </div>
+        </div>
+    </section>
+
+    <script src="script/script.js"></script>
 </body>
 
 </html>
