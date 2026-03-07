@@ -18,6 +18,11 @@ function switchTab(id) {
     const selected = document.getElementById(id);
     currentStatus = id;
 
+    selected.classList.remove("bg-white", "text-[64748B]", "border-2", "border-[#E4E4E7]");
+    selected.classList.add("bg-[#4a00ff]", "border-2", "border-[#4A00FF]", "text-white");
+
+
+    // toggle buttons functionality to show carts
     if (currentStatus === "tab-all") {
         // loadCarts() function to display all carts
         async function loadCarts() {
@@ -53,12 +58,16 @@ function switchTab(id) {
         }
         loadClosedCarts();
     }
-
-
-    selected.classList.remove("bg-white", "text-[64748B]", "border-2", "border-[#E4E4E7]");
-    selected.classList.add("bg-[#4a00ff]", "border-2", "border-[#4A00FF]", "text-white");
 }
 switchTab(currentStatus);
+
+// count function
+function totalCount() {
+    const totalCarts = document.getElementById("total-carts");
+    const allCarts = allContainer.children.length;
+    const updateTotalCarts = totalCarts.innerText = allCarts;
+    // console.log(updateTotalCarts);
+}
 
 // // loadCarts() function to display all carts
 // async function loadCarts() {
@@ -73,12 +82,62 @@ function showCarts(carts) {
     allContainer.innerHTML = "";
 
     carts.forEach(cart => {
+
+        // card.className classes
+        let cardClasses = "";
+
+        if (cart.status === "open") {
+            cardClasses = "border-t-4 border-t-[#00A96E]";
+        }
+        if (cart.status === "closed") {
+            cardClasses = "border-t-4 border-t-[#A855F7]";
+        }
+
+        // cart.priority classes
+        let priorityClass = "";
+
+        if (cart.priority === "high") {
+            priorityClass = "bg-[#FEECEC] text-[#EF4444]"
+        }
+        if (cart.priority === "medium") {
+            priorityClass = "bg-[#FFF6D1] text-[#F59E0B]";
+        }
+        if (cart.priority === "low") {
+            priorityClass = "bg-[#EEEFF2] text-[#9CA3AF]";
+        }
+
+        // cart.labels[0] classes
+        let cartLabelsZero = "";
+
+        if (cart.labels[0] === "bug") {
+            cartLabelsZero = "bg-[#FECACA] text-[#EF4444]"
+        }
+        if (cart.labels[0] === "enhancement") {
+            cartLabelsZero = "bg-[#DEFCE8] text-[#00A96E]"
+        }
+        if (cart.labels[0] === "documentation") {
+            cartLabelsZero = "bg-[#CCE0FF] text-[#485696]"
+        }
+
+        // cart.labels[1] classes
+        let cartLabelsOne = "";
+
+        if (cart.labels[1] === "help wanted") {
+            cartLabelsOne = "bg-[#FFF8DB] text-[#D97706]"
+        }
+        if (cart.labels[1] === "good first issue") {
+            cartLabelsOne = "bg-red-200 text-[#2f3e46]"
+        }
+        if (cart.labels[1] === "enhancement") {
+            cartLabelsOne = "bg-[#DEFCE8] text-[#00A96E]"
+        }
+
         const card = document.createElement("div");
-        card.className = "p-4 bg-white rounded-lg";
+        card.className = `${cardClasses} p-4 bg-white rounded-lg`;
         card.innerHTML = `
         <div class="flex justify-between items-center mb-3">
                 <img src="./assets/Open-Status.png" alt="">
-                <span class="bg-[#FEECEC] text-[#EF4444] py-1 px-4 font-medium rounded-lg text-[14px]">${cart.priority}</span>
+                <span class="${priorityClass} py-1 px-4 font-medium rounded-lg text-[14px]">${cart.priority.toUpperCase()}</span>
             </div>
             <div class="mb-2">
                 <p class="text-[16px] font-semibold text-[#1F2937] line-clamp-1">${cart.title}</p>
@@ -87,11 +146,11 @@ function showCarts(carts) {
                 <p class="text-[14px] text-[#64748B] line-clamp-2">${cart.description} 
                 </p>
             </div>
-            <div class="flex justify-between items-center">
-                <span class="bg-[#FECACA] text-[#EF4444] text-[14px] rounded-lg py-1 px-3"><i class="fa-solid fa-bug"
-                        style="color: rgb(255, 7, 7);"></i> ${cart.labels[0]}</span>
-                <span class="bg-[#FDE68A] py-1 px-2 rounded-lg text-[14px] text-[#D97706] font-medium"><i
-                        class="fa-regular fa-circle-dot" style="color: rgb(177, 162, 26);"></i> ${cart.labels[1] ? cart.labels[1] : ''}</span>
+            <div class="">
+                <span class="${cartLabelsZero} text-[14px] rounded-lg py-1 px-3"><i class="fa-solid fa-bug"
+                        style="color: rgb(255, 7, 7);"></i> ${cart.labels[0].toUpperCase()}</span>
+                <span class="${cartLabelsOne} py-1 px-2 rounded-lg text-[14px] font-medium"><i
+                        class="fa-regular fa-circle-dot" style="color: rgb(177, 162, 26);"></i> ${cart.labels[1] ? cart.labels[1].toUpperCase() : ""}</span>
             </div>
             <div class="pt-5">
                 <hr class=" text-[#E4E4E7]">
@@ -102,17 +161,7 @@ function showCarts(carts) {
             </div>
         `;
         allContainer.appendChild(card);
+        totalCount();
     });
-
-    // count function
-    function totalCount() {
-        const totalCarts = document.getElementById("total-carts");
-        const allCarts = allContainer.children.length;
-        const updateTotalCarts = totalCarts.innerText = allCarts;
-        // console.log(updateTotalCarts);
-    }
-    totalCount();
 }
-
-loadCarts();
 showCarts();
