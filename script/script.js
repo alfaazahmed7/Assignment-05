@@ -107,29 +107,38 @@ function showCarts(carts) {
         }
 
         // cart.labels[0] classes
+        let cartLabelsZeroIcon = "";
         let cartLabelsZero = "";
 
         if (cart.labels[0] === "bug") {
-            cartLabelsZero = "bg-[#FECACA] text-[#EF4444]"
+            cartLabelsZero = "bg-[#FECACA] text-[#EF4444]";
+            cartLabelsZeroIcon = `<i class="fa-solid fa-bug" style="color: rgb(255, 83, 83);"></i>`;
         }
         if (cart.labels[0] === "enhancement") {
-            cartLabelsZero = "bg-[#DEFCE8] text-[#00A96E]"
+            cartLabelsZero = "bg-[#DEFCE8] text-[#00A96E]";
+            cartLabelsZeroIcon = `<i class="fa-solid fa-wand-magic-sparkles" style="color: rgb(26, 178, 27);"></i>`;
         }
         if (cart.labels[0] === "documentation") {
-            cartLabelsZero = "bg-[#CCE0FF] text-[#485696]"
+            cartLabelsZero = "bg-[#CCE0FF] text-[#485696]";
+            cartLabelsZeroIcon = `<i class="fa-solid fa-file-lines" style="color: rgb(112, 111, 247);"></i>`;
         }
 
         // cart.labels[1] classes
+        let cartLabelsOneIcon = "";
         let cartLabelsOne = "";
 
         if (cart.labels[1] === "help wanted") {
             cartLabelsOne = "bg-[#FFF8DB] text-[#D97706]"
+            cartLabelsOneIcon = `<i class="fa-solid fa-user-astronaut" style="color: rgb(216, 177, 91);"></i>`;
+
         }
         if (cart.labels[1] === "good first issue") {
             cartLabelsOne = "bg-red-200 text-[#2f3e46]"
+            cartLabelsOneIcon = `<i class="fa-solid fa-circle-exclamation" style="color: rgb(244, 102, 102);"></i>`;
         }
         if (cart.labels[1] === "enhancement") {
             cartLabelsOne = "bg-[#DEFCE8] text-[#00A96E]"
+            cartLabelsOneIcon = `<i class="fa-solid fa-wand-magic-sparkles" style="color: rgb(26, 178, 27);"></i>`;
         }
 
         // dynamic image
@@ -157,11 +166,10 @@ function showCarts(carts) {
                 </p>
             </div>
             <div class="">
-                <span class="${cartLabelsZero} text-[14px] rounded-lg py-1 px-3"><i class="fa-solid fa-bug"
-                        style="color: rgb(255, 7, 7);"></i> ${cart.labels[0].toUpperCase()}</span>
+                <span class="${cartLabelsZero} text-[14px] rounded-lg py-1 px-3"> ${cartLabelsZeroIcon} ${cart.labels[0].toUpperCase()}</span>
                 ${cart.labels[1] ? `
     <span class="${cartLabelsOne} py-1 px-2 rounded-lg text-[14px] font-medium">
-        <i class="fa-regular fa-circle-dot"></i> ${cart.labels[1].toUpperCase()}
+        ${cartLabelsOneIcon} ${cart.labels[1].toUpperCase()}
     </span>
     ` : ""}
             </div>
