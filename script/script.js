@@ -132,15 +132,21 @@ function showCarts(carts) {
             cartLabelsOne = "bg-[#DEFCE8] text-[#00A96E]"
         }
 
-        // if (cart.labels[1] ? cart.labels[1].toUpperCase() : "" === undefined) {
-        //     cart.labels[1].parentNode.classList.add("hidden");
-        // }
+        // dynamic image
+        let statusImage = "";
+
+        if (cart.status === "open") {
+            statusImage = "./assets/Open-Status.png"
+        }
+        if (cart.status === "closed") {
+            statusImage = "./assets/Closed-Status.png"
+        }
 
         const card = document.createElement("div");
         card.className = `${cardClasses} p-4 bg-white rounded-lg`;
         card.innerHTML = `
         <div class="flex justify-between items-center mb-3">
-                <img src="./assets/Open-Status.png" alt="">
+                <img src="${statusImage}" alt="">
                 <span class="${priorityClass} py-1 px-4 font-medium rounded-lg text-[14px]">${cart.priority.toUpperCase()}</span>
             </div>
             <div class="mb-2">
@@ -163,7 +169,7 @@ function showCarts(carts) {
                 <hr class=" text-[#E4E4E7]">
             </div>
             <div class="my-4">
-                <p class="text-[14px] text-[#64748B]">${cart.assignee}</p>
+                <p class="text-[14px] text-[#64748B]">${cart.assignee.toUpperCase()}</p>
                 <p class="text-[14px] text-[#64748B]">${new Date(cart.updatedAt).toLocaleString("en-Us", { timeZone: "Asia/Jakarta" })}</p>
             </div>
         `;
