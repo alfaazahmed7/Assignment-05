@@ -4,18 +4,6 @@ const openContainer = document.getElementById("open-cart-container");
 const closedContainer = document.getElementById("closed-cart-container");
 
 
-
-// loadOpenCarts() function to display only status:open carts
-async function loadOpenCarts() {
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-    const result = await res.json();
-
-    const openIssues = result.data.filter(issue => issue.status === "open");
-    showCarts(openIssues);
-
-}
-loadOpenCarts();
-
 // toggle button logic
 function switchTab(id) {
 
@@ -30,26 +18,58 @@ function switchTab(id) {
     const selected = document.getElementById(id);
     currentStatus = id;
 
-    if (currentStatus = "tab-open") {
-        
+    if (currentStatus === "tab-all") {
+        // loadCarts() function to display all carts
+        async function loadCarts() {
+            const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+            const data = await res.json();
+            showCarts(data.data);
+        }
+        loadCarts();
+    }
+
+    if (currentStatus === "tab-open") {
+        // loadOpenCarts() function to display only status:open carts
+        async function loadOpenCarts() {
+            const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+            const result = await res.json();
+
+            const openIssues = result.data.filter(issue => issue.status === "open");
+            showCarts(openIssues);
+
+        }
+        loadOpenCarts();
+    }
+
+    if (currentStatus === "tab-closed") {
+        // loadClosedCarts() function to display only status:closed carts
+        async function loadClosedCarts() {
+            const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+            const result = await res.json();
+
+            const closedIssues = result.data.filter(issue => issue.status === "closed");
+            showCarts(closedIssues);
+
+        }
+        loadClosedCarts();
     }
 
 
     selected.classList.remove("bg-white", "text-[64748B]", "border-2", "border-[#E4E4E7]");
     selected.classList.add("bg-[#4a00ff]", "border-2", "border-[#4A00FF]", "text-white");
 }
-
 switchTab(currentStatus);
 
-// loadCarts() function to display all carts
-async function loadCarts() {
-    const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-    const data = await res.json();
-    showCarts(data.data);
-}
+// // loadCarts() function to display all carts
+// async function loadCarts() {
+//     const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
+//     const result = await res.json();
+//     showCarts(data.data);
+// }
+// loadCarts();
 
 function showCarts(carts) {
-    // console.log(carts);
+    console.log(carts);
     allContainer.innerHTML = "";
 
     carts.forEach(cart => {
@@ -93,21 +113,6 @@ function showCarts(carts) {
     }
     totalCount();
 }
-
-
-// event listener for all, open, and closed button
-document.getElementById("cart-container")
-    .addEventListener("click", async (event) => {
-        const clickedElement = event.target;
-        console.log(clickedElement);
-
-        if (clickedElement.classList.contains("tab-open")) {
-            const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
-            const data = await res.json();
-            showCarts(data.data);
-
-        }
-    });
 
 loadCarts();
 showCarts();
