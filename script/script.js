@@ -132,6 +132,10 @@ function showCarts(carts) {
             cartLabelsOne = "bg-[#DEFCE8] text-[#00A96E]"
         }
 
+        // if (cart.labels[1] ? cart.labels[1].toUpperCase() : "" === undefined) {
+        //     cart.labels[1].parentNode.classList.add("hidden");
+        // }
+
         const card = document.createElement("div");
         card.className = `${cardClasses} p-4 bg-white rounded-lg`;
         card.innerHTML = `
@@ -149,8 +153,11 @@ function showCarts(carts) {
             <div class="">
                 <span class="${cartLabelsZero} text-[14px] rounded-lg py-1 px-3"><i class="fa-solid fa-bug"
                         style="color: rgb(255, 7, 7);"></i> ${cart.labels[0].toUpperCase()}</span>
-                <span class="${cartLabelsOne} py-1 px-2 rounded-lg text-[14px] font-medium"><i
-                        class="fa-regular fa-circle-dot" style="color: rgb(177, 162, 26);"></i> ${cart.labels[1] ? cart.labels[1].toUpperCase() : ""}</span>
+                ${cart.labels[1] ? `
+    <span class="${cartLabelsOne} py-1 px-2 rounded-lg text-[14px] font-medium">
+        <i class="fa-regular fa-circle-dot"></i> ${cart.labels[1].toUpperCase()}
+    </span>
+    ` : ""}
             </div>
             <div class="pt-5">
                 <hr class=" text-[#E4E4E7]">
