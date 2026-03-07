@@ -54,13 +54,13 @@
     <!-- toggle buttons -->
     <section class="container mx-auto mb-4">
         <div class="bg-white p-6 rounded-xl">
-            <div class="">
+            <div id="cart-container">
                 <button onclick="switchTab('tab-all')" id="tab-all"
-                    class="bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">All</button>
+                    class="tab-all bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">All</button>
                 <button onclick="switchTab('tab-open')" id="tab-open"
-                    class="bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">Open</button>
+                    class="tab-open bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">Open</button>
                 <button onclick="switchTab('tab-closed')" id="tab-closed"
-                    class="bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">Closed</button>
+                    class="tab-closed bg-white text-[#64748B] border-2 border-[#E4E4E7] rounded-md py-2 px-10 font-semibold">Closed</button>
             </div>
         </div>
     </section>
@@ -71,7 +71,7 @@
             <div class="flex items-center gap-2">
                 <img src="./assets/Aperture.png" alt="">
                 <div>
-                    <h2 class="text-xl font-semibold text-[#1F2937]"><span>0</span> Issues</h2>
+                    <h2 class="text-xl font-semibold text-[#1F2937]"><span id="total-carts">0</span> Issues</h2>
                     <p class="text-base text-[#64748B]">Track and manage your project issues</p>
                 </div>
             </div>
@@ -87,10 +87,7 @@
 
     <!-- cart section -->
     <section class="container mx-auto bg-gray-200">
-        <div id="cart-container" class="grid grid-cols-4 gap-3">
-
-            <!-- cart -->
-            
+        <div id="all-cart-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
         </div>
     </section>
 
