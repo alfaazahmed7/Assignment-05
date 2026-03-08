@@ -82,6 +82,7 @@ function showCarts(carts) {
     allContainer.innerHTML = "";
 
     carts.forEach(cart => {
+        // console.log(cart.id);
 
         // card.className classes
         let cardClasses = "";
@@ -152,8 +153,9 @@ function showCarts(carts) {
         }
 
         const card = document.createElement("div");
-        card.className = `${cardClasses} p-4 bg-white rounded-lg`;
+        card.className = `${cardClasses} bg-white rounded-lg cursor-pointer`;
         card.innerHTML = `
+        <div  onclick = "openCartModal(${cart.id})" class = "p-4">
         <div class="flex justify-between items-center mb-3">
                 <img src="${statusImage}" alt="">
                 <span class="${priorityClass} py-1 px-4 font-medium rounded-lg text-[14px]">${cart.priority.toUpperCase()}</span>
@@ -180,9 +182,109 @@ function showCarts(carts) {
                 <p class="text-[14px] text-[#64748B]">${cart.assignee.toUpperCase()}</p>
                 <p class="text-[14px] text-[#64748B]">${new Date(cart.updatedAt).toLocaleString("en-Us", { timeZone: "Asia/Jakarta" })}</p>
             </div>
+            </div>
         `;
         allContainer.appendChild(card);
         totalCount();
     });
 }
+
+// modal functionality
+async function openCartModal(id) {
+
+    const cartDetailsModal = document.getElementById("cart-details-modal");
+    const modalTitle = document.getElementById("modal-title");
+    const modalStatus = document.getElementById("modal-status");
+    const modalAuthor = document.getElementById("modal-author");
+    const modalUpdateAt = document.getElementById("modal-updateat");
+    const modalLevelZero = document.getElementById("modal-level-zero");
+    const modalLevelOne = document.getElementById("modal-level-one");
+    const modalDescription = document.getElementById("modal-description");
+    const modalAssignee = document.getElementById("modal-assignee");
+    const modalPriority = document.getElementById("modal-priority");
+
+    const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
+    const result = await res.json();
+    const cartDetails = result.data;
+    console.log(cartDetails);
+    modalTitle.textContent = cartDetails.title;
+
+    modalStatus.textContent = cartDetails.status.toUpperCase();
+    modalStatus.classList = "text-[12px] font-medium py-1 px-2 rounded-lg";
+    if (modalStatus.textContent === "OPEN") {
+        modalStatus.textContent = "OPENED";
+    }
+    if (modalStatus.textContent === "OPENED") {
+        modalStatus.classList.add("bg-[#00A96E]", "text-white");
+    }
+    if (modalStatus.textContent === "CLOSED") {
+        modalStatus.classList.add("bg-[#A855F7]", "text-[#ffe5ec]");
+    }
+
+    modalAuthor.textContent = cartDetails.author.toUpperCase();
+
+    const date = new Date(cartDetails.updatedAt);
+    modalUpdateAt.textContent = date.toLocaleDateString("en-US", { timeZone: "Asia/Jakarta" });
+
+    const label = cartDetails.labels?.[0]?.toUpperCase();
+    modalLevelZero.className = "text-[12px] rounded-lg py-1 px-3";
+    if (label === "BUG") {
+        modalLevelZero.classList.add("bg-[#FECACA]", "text-[#EF4444]");
+        modalLevelZero.innerHTML = `<i class="fa-solid fa-bug" style="color: rgb(255, 83, 83);"></i>
+        ${label}`;
+    }
+    if (label === "ENHANCEMENT") {
+        modalLevelZero.classList.add("bg-[#DEFCE8]", "text-[#00A96E]");
+        modalLevelZero.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" style="color: rgb(26, 178, 27);"></i>
+        ${label}`;
+    }
+    if (label === "DOCUMENTATION") {
+        modalLevelZero.classList.add("bg-[#CCE0FF]", "text-[#485696]");
+        modalLevelZero.innerHTML = `<i class="fa-solid fa-file-lines" style="color: rgb(112, 111, 247);"></i>
+        ${label}`;
+    }
+
+    const labelOne = cartDetails.labels?.[1]?.toUpperCase();
+    // reset second label
+    modalLevelOne.textContent = "";
+    modalLevelOne.className = "hidden";
+    modalLevelOne.className = "text-[12px] rounded-lg py-1 px-3";
+    if (labelOne === "HELP WANTED") {
+        modalLevelOne.classList.add("bg-[#FFF8DB]", "text-[#D97706]");
+        modalLevelOne.innerHTML = `<i class="fa-solid fa-user-astronaut" style="color: rgb(216, 177, 91);"></i>
+        ${labelOne}`;
+    }
+    if (labelOne === "GOOD FIRST ISSUE") {
+        modalLevelOne.classList.add("bg-red-200", "text-[#2f3e46]");
+        modalLevelOne.innerHTML = `<i class="fa-solid fa-circle-exclamation" style="color: rgb(244, 102, 102);"></i>
+        ${labelOne}`;
+    }
+    if (labelOne === "ENHANCEMENT") {
+        modalLevelOne.classList.add("bg-[#DEFCE8]", "text-[#00A96E]");
+        modalLevelOne.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles" style="color: rgb(26, 178, 27);"></i>
+        ${labelOne}`;
+    }
+
+    modalDescription.textContent = cartDetails.description;
+
+    modalAssignee.textContent = cartDetails.assignee.toUpperCase();
+    if (modalAssignee.textContent === "") {
+        modalAssignee.textContent = "NAME NOT FOUND"
+    }
+
+    modalPriority.textContent = cartDetails.priority.toUpperCase();
+    modalPriority.className = " py-1 px-3 text-[12px] font-medium rounded-xl"
+    if (modalPriority.textContent === "HIGH") {
+        modalPriority.classList.add("bg-[#EF4444]", "text-white");
+    }
+    else if (modalPriority.textContent === "MEDIUM") {
+        modalPriority.classList.add("bg-[#FFF6D1]", "text-[#F59E0B]");
+    }
+    else if (modalPriority.textContent === "LOW") {
+        modalPriority.classList.add("bg-[#778da9]", "text-[#fdf0d5]");
+    }
+
+    cartDetailsModal.showModal();
+}
+
 showCarts();
