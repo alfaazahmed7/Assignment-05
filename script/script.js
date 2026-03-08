@@ -61,6 +61,23 @@ function switchTab(id) {
 }
 switchTab(currentStatus);
 
+// search funtionality
+document.getElementById("btn-search")
+    .addEventListener("click", () => {
+        const input = document.getElementById("input-search");
+        const searchValue = input.value;
+
+        fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues")
+            .then(res => res.json())
+            .then(data => {
+                const allCarts = data.data;
+                const filterCarts = allCarts.filter(cart =>
+                    cart.title.toLowerCase().includes(searchValue.toLowerCase()) || cart.description.toLowerCase().includes(searchValue)
+                );
+                showCarts(filterCarts);
+            });
+    });
+
 // count function
 function totalCount() {
     const totalCarts = document.getElementById("total-carts");
@@ -78,7 +95,7 @@ function totalCount() {
 // loadCarts();
 
 function showCarts(carts) {
-    console.log(carts);
+    // console.log(carts);
     allContainer.innerHTML = "";
 
     carts.forEach(cart => {
@@ -206,7 +223,7 @@ async function openCartModal(id) {
     const res = await fetch(`https://phi-lab-server.vercel.app/api/v1/lab/issue/${id}`);
     const result = await res.json();
     const cartDetails = result.data;
-    console.log(cartDetails);
+    // console.log(cartDetails);
     modalTitle.textContent = cartDetails.title;
 
     modalStatus.textContent = cartDetails.status.toUpperCase();
