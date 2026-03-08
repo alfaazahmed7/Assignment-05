@@ -7,6 +7,7 @@ const spinner = document.getElementById("spinner");
 
 // toggle button logic
 function switchTab(id) {
+    showLoading();
 
     const tabs = ["tab-all", "tab-open", "tab-closed"];
 
@@ -27,10 +28,8 @@ function switchTab(id) {
     if (currentStatus === "tab-all") {
         // loadCarts() function to display all carts
         async function loadCarts() {
-            showLoading();
             const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
             const data = await res.json();
-            hideLoading();
             showCarts(data.data);
         }
         loadCarts();
@@ -39,12 +38,10 @@ function switchTab(id) {
     if (currentStatus === "tab-open") {
         // loadOpenCarts() function to display only status:open carts
         async function loadOpenCarts() {
-            showLoading();
             const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
             const result = await res.json();
 
             const openIssues = result.data.filter(issue => issue.status === "open");
-            hideLoading();
             showCarts(openIssues);
 
         }
@@ -54,17 +51,17 @@ function switchTab(id) {
     if (currentStatus === "tab-closed") {
         // loadClosedCarts() function to display only status:closed carts
         async function loadClosedCarts() {
-            showLoading();
+
             const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
             const result = await res.json();
 
             const closedIssues = result.data.filter(issue => issue.status === "closed");
-            hideLoading();
             showCarts(closedIssues);
 
         }
         loadClosedCarts();
     }
+    hideLoading()
 }
 switchTab(currentStatus);
 
@@ -88,9 +85,10 @@ document.getElementById("btn-search")
 // spinner functionality
 function showLoading() {
     spinner.classList.remove("hidden");
-    allContainer.innerHTML = ""
+    allContainer.classList.add("hidden");
 }
-function hideLoading () {
+function hideLoading() {
+    allContainer.classList.remove("hidden");
     spinner.classList.add("hidden");
 }
 
@@ -111,7 +109,6 @@ function totalCount() {
 // loadCarts();
 
 function showCarts(carts) {
-    showLoading();
     allContainer.innerHTML = "";
 
     carts.forEach(cart => {
@@ -220,7 +217,6 @@ function showCarts(carts) {
         allContainer.appendChild(card);
         totalCount();
     });
-    hideLoading();
 }
 
 // modal functionality
@@ -320,5 +316,3 @@ async function openCartModal(id) {
 
     cartDetailsModal.showModal();
 }
-
-showCarts();
