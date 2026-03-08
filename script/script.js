@@ -2,6 +2,7 @@ let currentStatus = "tab-all";
 const allContainer = document.getElementById("all-cart-container");
 const openContainer = document.getElementById("open-cart-container");
 const closedContainer = document.getElementById("closed-cart-container");
+const spinner = document.getElementById("spinner");
 
 
 // toggle button logic
@@ -26,8 +27,10 @@ function switchTab(id) {
     if (currentStatus === "tab-all") {
         // loadCarts() function to display all carts
         async function loadCarts() {
+            showLoading();
             const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
             const data = await res.json();
+            hideLoading();
             showCarts(data.data);
         }
         loadCarts();
@@ -36,10 +39,12 @@ function switchTab(id) {
     if (currentStatus === "tab-open") {
         // loadOpenCarts() function to display only status:open carts
         async function loadOpenCarts() {
+            showLoading();
             const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
             const result = await res.json();
 
             const openIssues = result.data.filter(issue => issue.status === "open");
+            hideLoading();
             showCarts(openIssues);
 
         }
@@ -49,10 +54,12 @@ function switchTab(id) {
     if (currentStatus === "tab-closed") {
         // loadClosedCarts() function to display only status:closed carts
         async function loadClosedCarts() {
+            showLoading();
             const res = await fetch("https://phi-lab-server.vercel.app/api/v1/lab/issues");
             const result = await res.json();
 
             const closedIssues = result.data.filter(issue => issue.status === "closed");
+            hideLoading();
             showCarts(closedIssues);
 
         }
@@ -78,6 +85,15 @@ document.getElementById("btn-search")
             });
     });
 
+// spinner functionality
+function showLoading() {
+    spinner.classList.remove("hidden");
+    allContainer.innerHTML = ""
+}
+function hideLoading () {
+    spinner.classList.add("hidden");
+}
+
 // count function
 function totalCount() {
     const totalCarts = document.getElementById("total-carts");
@@ -95,7 +111,7 @@ function totalCount() {
 // loadCarts();
 
 function showCarts(carts) {
-    // console.log(carts);
+    showLoading();
     allContainer.innerHTML = "";
 
     carts.forEach(cart => {
@@ -204,6 +220,7 @@ function showCarts(carts) {
         allContainer.appendChild(card);
         totalCount();
     });
+    hideLoading();
 }
 
 // modal functionality

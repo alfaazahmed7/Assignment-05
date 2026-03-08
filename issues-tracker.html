@@ -85,6 +85,11 @@
         <hr class="text-[#E4E4E7] ">
     </section>
 
+    <!-- loading spinner -->
+    <section class="flex justify-center items-center my-10 hidden">
+        <span id="spinner" class="loading loading-spinner loading-xl"></span>
+    </section>
+
     <!-- cart section -->
     <section class="container mx-auto bg-gray-200">
         <div id="all-cart-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
@@ -97,10 +102,12 @@
 
                     <div>
                         <div>
-                            <h2 id="modal-title" class="text-[#1F2937] text-2xl font-bold mb-3">Fix broken image uploads</h2>
+                            <h2 id="modal-title" class="text-[#1F2937] text-2xl font-bold mb-3">Fix broken image uploads
+                            </h2>
                         </div>
                         <div class="flex gap-2 items-center mb-7">
-                            <span id="modal-status" class="bg-[#00A96E] text-[12px] font-medium py-1 px-2 rounded-lg text-white">Opened</span>
+                            <span id="modal-status"
+                                class="bg-[#00A96E] text-[12px] font-medium py-1 px-2 rounded-lg text-white">Opened</span>
                             <div class="flex gap-2 items-center text-[#64748B] text-[12px]">
                                 <div class="flex items-center gap-2">
                                     <span class="text-2xl">•</span>
@@ -113,20 +120,25 @@
                             </div>
                         </div>
                         <div class="flex gap-3 mb-6">
-                            <span id="modal-level-zero" class="bg-[#FECACA] text-[#EF4444] text-[12px] rounded-lg py-1 px-3">BUG</span>
-                            <span id="modal-level-one" class="bg-[#FFF8DB] text-[#D97706] text-[12px] rounded-lg py-1 px-3">HELP WANTED</span>
+                            <span id="modal-level-zero"
+                                class="bg-[#FECACA] text-[#EF4444] text-[12px] rounded-lg py-1 px-3">BUG</span>
+                            <span id="modal-level-one"
+                                class="bg-[#FFF8DB] text-[#D97706] text-[12px] rounded-lg py-1 px-3">HELP WANTED</span>
                         </div>
                         <div>
-                            <p id="modal-description" class="text-base text-[#64748B] mb-6">The navigation menu doesn't collapse properly on mobile devices. Need to fix the responsive behavior.</p>
+                            <p id="modal-description" class="text-base text-[#64748B] mb-6">The navigation menu doesn't
+                                collapse properly on mobile devices. Need to fix the responsive behavior.</p>
                         </div>
                         <div class="bg-gray-100 flex p-4 rounded-xl">
                             <div class="w-[50%]">
                                 <p class="text-base text-[#64748B]">Assignee</p>
-                                <span id="modal-assignee" class="text-[#1F2937] text-base font-semibold">Fahim Ahmed</span>
+                                <span id="modal-assignee" class="text-[#1F2937] text-base font-semibold">Fahim
+                                    Ahmed</span>
                             </div>
                             <div class="w-[50%]">
                                 <p class="text-base text-[#64748B]">Priority:</p>
-                                <span id="modal-priority" class="bg-[#EF4444] py-1 px-3 text-[12px] font-medium text-white rounded-xl">HIGH</span>
+                                <span id="modal-priority"
+                                    class="bg-[#EF4444] py-1 px-3 text-[12px] font-medium text-white rounded-xl">HIGH</span>
                             </div>
                         </div>
                     </div>
