@@ -80,6 +80,15 @@ document.getElementById("btn-search")
                 const filterCarts = allCarts.filter(cart =>
                     cart.title.toLowerCase().includes(searchValue.toLowerCase()) || cart.description.toLowerCase().includes(searchValue)
                 );
+
+                if (filterCarts.length === 0) {
+                    allContainer.innerHTML = `
+        <div class="text-center col-span-full bg-white rounded-lg py-10">
+            <p class="text-[#64748B] text-lg font-semibold p-10">We couldn't find any issues matching your search. Try different keywords.</p>
+        </div>
+    `;
+                    return;
+                }
                 showCarts(filterCarts);
             });
     });
@@ -305,7 +314,7 @@ async function openCartModal(id) {
     }
 
     modalPriority.textContent = cartDetails.priority.toUpperCase();
-    modalPriority.className = " py-1 px-3 text-[12px] font-medium rounded-xl"
+    modalPriority.className = " py-1 px-2 text-[12px] font-medium rounded-xl"
     if (modalPriority.textContent === "HIGH") {
         modalPriority.classList.add("bg-[#EF4444]", "text-white");
     }
